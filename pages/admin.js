@@ -25,6 +25,7 @@ class Admin extends Component {
 	}
 
 	componentDidMount() {
+    axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('cnd.token');
 		this.setState({
 			title: '',
 			content: [
