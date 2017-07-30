@@ -9,7 +9,7 @@ const router = express.Router()
 const apiPrefix = '/api/v1'
 
 router.get(`${apiPrefix}/listPages`, pageController.listPages);
-router.post(`${apiPrefix}/createPage`, pageController.createPage);
+router.post(`${apiPrefix}/createPage`, passport.authenticate('jwt', {session: false}), pageController.createPage);
 router.get(`${apiPrefix}/getPage`, pageController.getPage);
 
 router.put(`${apiPrefix}/editPage/:id`, pageController.editPage);
