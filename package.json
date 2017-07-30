@@ -26,6 +26,7 @@
     "lowdb": "^0.16.2",
     "next": "^2.4.7",
     "node-sass": "^4.5.3",
+    "nodemailer": "^4.0.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "raw-loader": "^0.5.1",
