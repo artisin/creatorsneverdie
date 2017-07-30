@@ -31,7 +31,7 @@ class Header extends Component {
 			  <div className="navbar-brand">
 			  	<Link href="/">
 			    <a className="navbar-item">
-			     <h1>CREATORS NEVER DIE</h1>
+			     <h4>CREATORS NEVER DIE</h4>
 			    </a>
 			    </Link>
 
@@ -45,19 +45,8 @@ class Header extends Component {
 			  <div id="navMenuExample" className="navbar-menu">
 
 			    <div className="navbar-start">
-			      <Link href="/portfolio">
-			      	<a className="navbar-item">Portfolio</a>
-			      </Link>
-			      <Link href="/about">
-			      	<a className="navbar-item">About</a>
-			      </Link>
-			      <Link href="/contact">
-			      	<a className="navbar-item">Contact Us</a>
-			      </Link>
 						{!this.props.loggedIn ?
-							<Link href="/login">
-				      	<a className="navbar-item">Login</a>
-							</Link> 
+							null
             :
 	            <a className="navbar-item" onClick={this.signOut}>Log out</a>
 	          }

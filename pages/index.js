@@ -8,12 +8,22 @@ class Index extends Component {
 	render() {
 		return(
 			<Layout>
-				<Main />
-				<h2>Our Work</h2>
-				<PortfolioList />
-				<h2>Contact Us</h2>
-				<p>You're so close to success. Don't stop now!</p>
-				<ContactForm />
+				<div className="Index container has-text-centered">
+						<div className="MainWrapper">
+							<Main />
+						</div>
+							
+							<div className="WorkWrapper">
+								<h2>Our Work</h2>
+								<PortfolioList />
+							</div>
+
+							<div className="ContactWrapper">
+								<h2>Contact Us</h2>
+								<p>You're so close to success. Don't stop now!</p>
+								<ContactForm />
+							</div>
+				</div>
 			</Layout>
 		)
 	}

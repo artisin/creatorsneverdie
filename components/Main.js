@@ -9,9 +9,13 @@ class Main extends Component {
 	render() {
 		return (
 			<div className="Main">
-				<img src="/" />
-				<h2>Strategize your digital presence</h2>
-				<p>Web & App Development // Social Media Management</p>
+					<div className="bigLogo">
+						<img src="/" />
+					</div>
+					<div className="captureText">
+						<h2>Strategize your digital presence</h2>
+						<p>Web & App Development // Social Media Management</p>
+					</div>
 			</div>
 		)
 	}

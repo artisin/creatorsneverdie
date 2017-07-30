@@ -125,6 +125,7 @@ class Admin extends Component {
 			<Layout>
 				<div className="Admin">
 					<h2>Admin</h2>
+					<p>Create a new page</p>
 					<form onSubmit={this.handleSubmit}>
 	        	<input 
 	            type="text" 
@@ -133,7 +134,7 @@ class Admin extends Component {
 	            onChange={this.handleChange}
 	            value={this.state.title} 
 	            />
-	          <h3>Content</h3>
+	          <p>Content</p>
 	            {contentInputs}
 	            <button onClick={this.addInput}>Add</button>
 	          <input type="submit" value={`Submit`}/>

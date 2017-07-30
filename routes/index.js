@@ -10,6 +10,7 @@ const apiPrefix = '/api/v1'
 
 router.get(`${apiPrefix}/listPages`, pageController.listPages);
 router.post(`${apiPrefix}/createPage`, pageController.createPage);
+router.get(`${apiPrefix}/getPage`, pageController.getPage);
 
 router.put(`${apiPrefix}/editPage/:id`, pageController.editPage);
 router.delete(`${apiPrefix}/deletePage/:id`, pageController.deletePage);

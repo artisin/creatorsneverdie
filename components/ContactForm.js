@@ -10,17 +10,17 @@ class ContactForm extends Component {
 		return (
 			<div className="ContactForm">
 				<form>
-					<div>
-						<input type="text" placeholder="fullname" name="fullname" />
+					<div className="field">
+						<input className="input" type="text" placeholder="fullname" name="fullname" />
+					</div>
+					<div className="field">
+						<input className="input" type="email" placeholder="email" name="email" />
+					</div>
+					<div className="field">
+						<textarea className="textarea" placeholder="msg...." name="message" />
 					</div>
 					<div>
-						<input type="email" placeholder="email" name="email" />
-					</div>
-					<div>
-						<textarea placeholder="msg...." name="message" />
-					</div>
-					<div>
-						<input type="submit" />
+						<input className="button" type="submit" />
 					</div>
 				</form>
 			</div>
