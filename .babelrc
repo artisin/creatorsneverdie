@@ -1,29 +1,10 @@
 {
-plugins: [
-[
-"module-resolver",
-{
-root: [
-"."
-],
-alias: {
-styles: "./styles"
-},
-cwd: "babelrc"
-}
-],
-[
-"wrap-in-js",
-{
-extensions: [
-"css$",
-"scss$"
-]
-}
-]
-],
-presets: [
-"next/babel", "es2015", "stage-0"
-],
-ignore: [ ]
+	plugins: [
+		["module-resolver", {	root: ["."], alias: { styles: "./styles" }, cwd: "babelrc"}], ["wrap-in-js", { extensions: ["css$","scss$"]}],
+		"inline-react-svg"
+	],
+	presets: [
+		"next/babel", "es2015", "stage-0"
+	],
+	ignore: [ ]
 }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 
+import Logo from '../static/logo.svg'
+
 class Main extends Component {
 	constructor(props) {
 		super(props);
@@ -10,7 +12,7 @@ class Main extends Component {
 		return (
 			<div className="Main">
 					<div className="bigLogo">
-						<img src="/" />
+						<Logo />
 					</div>
 					<div className="captureText">
 						<h2>Strategize your digital presence</h2>
