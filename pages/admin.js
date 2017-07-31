@@ -99,8 +99,8 @@ class Admin extends Component {
 			)
 		})
 
-
 	  const contentInputs = this.state.content.map((content, i)=> {
+	  	
      return (
         <div key={i}>
           <input 
@@ -109,7 +109,7 @@ class Admin extends Component {
             id={`${i}`} 
             placeholder="Class name"
             onChange={this.handleNestedChange}
-            value={this.state.content[0].className || ''}
+            value={content.className || ''}
           />
           <input 
             type="text" 
@@ -117,7 +117,7 @@ class Admin extends Component {
             placeholder="Body"
             id={`${i}`}
             onChange={this.handleNestedChange}
-            value={this.state.content[0].body || ''}
+            value={content.body || ''}
           />
         </div>
       )
