@@ -10,6 +10,7 @@ exports.listPages = (req, res) => {
 exports.createPage = (req, res) => {
 	const db = req.app.get('db');
 	const page = db.get('pages').push(req.body).write()
+	console.log(page)
 	res.json(page)
 }
 

@@ -73,9 +73,7 @@ class Admin extends Component {
 
 	createPage(page) {
     instance.post('createPage',page).then((response) => {
-      Router.push({
-      	pathname: '/admin'
-      })
+    	Route.push('/admin')
     }).catch((error) => {
       console.log(error)
     })
