@@ -73,7 +73,7 @@ class Admin extends Component {
 
 	createPage(page) {
     instance.post('createPage',page).then((response) => {
-    	Route.push('/admin')
+    	Router.push('/admin')
     }).catch((error) => {
       console.log(error)
     })
@@ -92,26 +92,26 @@ class Admin extends Component {
 			return (
 				<div key={i}>
 					<h2>{page.title}</h2>
-					<button onClick={this.deletePage(i)}>Delete</button>
+					<button onClick={() => { this.deletePage(i) } }>Delete</button>
 				</div>
 			)
 		})
 
 	  const contentInputs = this.state.content.map((content, i)=> {
-	  	
+
      return (
         <div key={i}>
-          <input 
-            type="text" 
+          <input
+            type="text"
             name="className"
-            id={`${i}`} 
+            id={`${i}`}
             placeholder="Class name"
             onChange={this.handleNestedChange}
             value={content.className || ''}
           />
-          <input 
-            type="text" 
-            name="body" 
+          <input
+            type="text"
+            name="body"
             placeholder="Body"
             id={`${i}`}
             onChange={this.handleNestedChange}
@@ -126,12 +126,12 @@ class Admin extends Component {
 					<h2>Admin</h2>
 					<p>Create a new page</p>
 					<form onSubmit={this.handleSubmit}>
-	        	<input 
-	            type="text" 
-	            name="title" 
+	        	<input
+	            type="text"
+	            name="title"
 	            placeholder={`Enter the title`}
 	            onChange={this.handleChange}
-	            value={this.state.title} 
+	            value={this.state.title}
 	            />
 	          <p>Content</p>
 	            {contentInputs}
