@@ -1,7 +1,6 @@
+import { db } from './../db';
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-
-const db = require('../db').default
 const config = require('./config')
 
 module.exports = function(passport) {

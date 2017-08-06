@@ -7,44 +7,54 @@ import Router from 'next/router'
 const instance = axios.create({baseURL: 'http://localhost:3000/api/v1'})
 
 class Admin extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			title: '',
-			content: [
-				{className: '', body: ''}
-			]
-		}
-		this.deletePage = this.deletePage.bind(this)
+  /**
+   * Runs before constructor and passes recived props
+   */
+  static async getInitialProps() {
+    const res = await instance.get('listPages');
+    const pages = res.data;
+    return { pages };
+  }
+  constructor(props) {
+    super(props);
+    //used to reset form as well
+    this.staticStuc = {
+      title: '',
+      content: [
+        {className: '', body: ''}
+      ]
+    };
+    //assign 'getInitialProps' props to state
+    this.state = {
+      ...props,
+      ...this.staticStuc
+    };
+    this.deletePage = this.deletePage.bind(this);
 
 
-		this.addInput = this.addInput.bind(this)
-		this.handleSubmit = this.handleSubmit.bind(this)
-		this.handleChange = this.handleChange.bind(this)
-		this.handleNestedChange = this.handleNestedChange.bind(this)
-	}
+    this.addInput = this.addInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleNestedChange = this.handleNestedChange.bind(this);
+  }
 
-	componentDidMount() {
+  componentDidMount() {
     axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('cnd.token');
-		this.setState({
-			title: '',
-			content: [
-				{className: '', body: ''}
-			]
-		})
-	}
+    this.setState({
+      title: '',
+      content: [
+        {className: '', body: ''}
+      ]
+    });
+  }
 
-	static async getInitialProps() {
-		const res = await instance.get('listPages')
-		const pages = res.data
-		return { pages: pages }
-	}
+
 
   handleChange(e) {
-    const value = e.target.value
+    const value = e.target.value;
     this.setState({
       [e.target.name]: value
-    })
+    });
   }
 
   handleNestedChange(e) {
@@ -57,7 +67,7 @@ class Admin extends Component {
 
 
   addInput() {
-    const newInput = { className: '', body: ''}
+    const newInput = { className: '', body: ''};
     this.setState({content: this.state.content.concat(newInput)});
   }
 
@@ -65,41 +75,71 @@ class Admin extends Component {
 
   deletePage(id) {
     instance.delete(`deletePage/${id}`).then((response) => {
-      Router.push('/admin')
+      //on response from db that the page is deleted
+      //we now need to reflect those changes to our local state
+      if (response && response.data) {
+        self.setState({pages: response.data});
+      }
+      // no need to push a new route state since we on admin
+      // Router.push('/admin')
     }).catch((error) => {
-      console.log(error)
-    })
+      console.log(error);
+    });
   }
 
-	createPage(page) {
-    instance.post('createPage',page).then((response) => {
-    	Router.push('/admin')
+  createPage(data) {
+    const self = this;
+    instance.post('createPage', data).then((response) => {
+      //on response from db that the page is created
+      //we now need to reflect those changes to our local state
+      //and reset the form input
+      if (response && response.data) {
+        const staticStuc = Object.assign({}, self.staticStuc);
+        self.setState({
+          ...staticStuc,
+          pages: response.data
+        });
+      }
+      // no need to push a new route state since we on admin
+      // Router.push('/admin')
     }).catch((error) => {
-      console.log(error)
-    })
+      console.log(error);
+    });
   }
+
 
   handleSubmit(e) {
     e.preventDefault();
-    this.createPage(this.state);
+    this.createPage({
+      title: this.state.title,
+      content: this.state.content,
+    });
   }
 
 
 
+  render() {
+    const self = this;
 
-	render() {
-		const pages = this.props.pages.map((page, i) => {
-			return (
-				<div key={i}>
-					<h2>{page.title}</h2>
-					<button onClick={() => { this.deletePage(i) } }>Delete</button>
-				</div>
-			)
-		})
+    const pages = this.state.pages.map((page, i) => {
+      return (
+        <div key={i}>
+          <h2>{page.title}</h2>
+          {/*
+              THE DAMN BUGS LOCATIONS
+              Explanation: This onClick event needed to be wrapped in a fucntion.
+              To make a long story short, the reason why you saw the page for a
+              temporary moment before it houdini'ed the fuck out of existence was
+              because in fact this code was deleting the page. So the page was
+              "disappearing" since it was being deleted.
+           */}
+          <button onClick={() => self.deletePage(i)}>Delete</button>
+        </div>
+      );
+    });
 
-	  const contentInputs = this.state.content.map((content, i)=> {
-
-     return (
+    const contentInputs = this.state.content.map((content, i)=> {
+      return (
         <div key={i}>
           <input
             type="text"
@@ -118,31 +158,31 @@ class Admin extends Component {
             value={content.body || ''}
           />
         </div>
-      )
-    })
-		return (
-			<Layout>
-				<div className="Admin">
-					<h2>Admin</h2>
-					<p>Create a new page</p>
-					<form onSubmit={this.handleSubmit}>
-	        	<input
-	            type="text"
-	            name="title"
-	            placeholder={`Enter the title`}
-	            onChange={this.handleChange}
-	            value={this.state.title}
-	            />
-	          <p>Content</p>
-	            {contentInputs}
-	            <button onClick={this.addInput}>Add</button>
-	          <input type="submit" value={`Submit`}/>
-	        </form>
-					{pages}
-				</div>
-			</Layout>
-		)
-	}
+      );
+    });
+    return (
+      <Layout>
+        <div className="Admin">
+          <h2>Admin</h2>
+          <p>Create a new page</p>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="title"
+              placeholder={`Enter the title`}
+              value={this.state.title}
+              onChange={this.handleChange}
+              />
+            <p>Content</p>
+              {contentInputs}
+              <button type="button" onClick={this.addInput}>Add</button>
+              <input type="submit" value={`Submit`}/>
+          </form>
+          {pages}
+        </div>
+      </Layout>
+    )
+  }
 }
 
 export default Admin

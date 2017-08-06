@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "babel-node app.js --ignore node_modules, .next, yarn.lock",
+    "dev": "babel-node ./server/index.js --ignore node_modules, .next",
+    "dev:nodemon": "nodemon --watch ./server ./server/index.js --ignore db.json  --exec babel-node --presets es2015,stage-0",
     "build": "next build",
-    "start": "NODE_ENV=production node app.js"
+    "start": "NODE_ENV=production node ./server/index.js"
   },
   "dependencies": {
     "autoprefixer": "^7.1.2",
@@ -33,7 +34,8 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "sass-loader": "^6.0.6",
-    "three": "^0.86.0"
+    "three": "^0.86.0",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

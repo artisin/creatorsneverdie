@@ -35,12 +35,12 @@ export default class User {
 				db.get('users').push(newUser.model).write();
 				resolve(newUser);
 			}
-			
+
 		});
 	}
 
-	
-	comparePassword(pw, cb) {  
+
+	comparePassword(pw, cb) {
 		// ----- Plain Password ------ //
 		// if( this.model.password !== pw ){
 		// 	cb(null, false);

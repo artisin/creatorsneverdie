@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "title": "Home",
+      "content": [
+        {
+          "className": "wrapper",
+          "body": "lorem ipsum"
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@admin.com",
+      "password": "$2a$10$ta2RdU36vw6V3mZFy7i0ZuSnKDQjTZJHbqsyLceTzHPe5kZODj4v."
+    }
+  ]
+}

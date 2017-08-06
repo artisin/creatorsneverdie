@@ -1,13 +1,13 @@
 import User from '../models/User'
-import db from '../db'
 import jwt from 'jsonwebtoken'
 import config from '../config/config'
+import { db } from '../db'
 
 exports.register = (req, res, next) => {
   if(!req.body.email || !req.body.password) {
     res.json({ success: false, message: 'Please enter email and password.' });
   } else {
-    
+
     const newUser = new User({
       email: req.body.email,
       password: req.body.password
